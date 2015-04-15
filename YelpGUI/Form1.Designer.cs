@@ -33,13 +33,13 @@
             this.SubCategoryList = new System.Windows.Forms.CheckedListBox();
             this.MainCategoryList = new System.Windows.Forms.CheckedListBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.DayOfWeekCombo = new System.Windows.Forms.ComboBox();
+            this.FromCombo = new System.Windows.Forms.ComboBox();
+            this.ToCombo = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.SearchForCombo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
@@ -79,6 +79,7 @@
             this.SubCategoryList.Name = "SubCategoryList";
             this.SubCategoryList.Size = new System.Drawing.Size(204, 649);
             this.SubCategoryList.TabIndex = 6;
+            this.SubCategoryList.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.SubCategoryList_ItemCheck);
             // 
             // MainCategoryList
             // 
@@ -101,29 +102,90 @@
             this.dataGridView1.Size = new System.Drawing.Size(800, 652);
             this.dataGridView1.TabIndex = 8;
             // 
-            // comboBox1
+            // DayOfWeekCombo
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(15, 728);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(168, 21);
-            this.comboBox1.TabIndex = 2;
+            this.DayOfWeekCombo.FormattingEnabled = true;
+            this.DayOfWeekCombo.Items.AddRange(new object[] {
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"});
+            this.DayOfWeekCombo.Location = new System.Drawing.Point(15, 728);
+            this.DayOfWeekCombo.Name = "DayOfWeekCombo";
+            this.DayOfWeekCombo.Size = new System.Drawing.Size(168, 21);
+            this.DayOfWeekCombo.TabIndex = 2;
+            this.DayOfWeekCombo.Text = "(Select Day)";
             // 
-            // comboBox2
+            // FromCombo
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(189, 728);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(98, 21);
-            this.comboBox2.TabIndex = 3;
+            this.FromCombo.FormattingEnabled = true;
+            this.FromCombo.Items.AddRange(new object[] {
+            "12:00AM",
+            "1:00AM",
+            "2:00AM",
+            "3:00AM",
+            "4:00AM",
+            "5:00AM",
+            "6:00AM",
+            "7:00AM",
+            "8:00AM",
+            "9:00AM",
+            "10:00AM",
+            "11:00AM",
+            "12:00PM",
+            "1:00PM",
+            "2:00PM",
+            "3:00PM",
+            "4:00PM",
+            "5:00PM",
+            "6:00PM",
+            "7:00PM",
+            "8:00PM",
+            "9:00PM",
+            "10:00PM",
+            "11:00PM"});
+            this.FromCombo.Location = new System.Drawing.Point(189, 728);
+            this.FromCombo.Name = "FromCombo";
+            this.FromCombo.Size = new System.Drawing.Size(98, 21);
+            this.FromCombo.TabIndex = 3;
+            this.FromCombo.Text = "(Open Time)";
             // 
-            // comboBox3
+            // ToCombo
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(295, 728);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(98, 21);
-            this.comboBox3.TabIndex = 4;
+            this.ToCombo.FormattingEnabled = true;
+            this.ToCombo.Items.AddRange(new object[] {
+            "12:00AM",
+            "1:00AM",
+            "2:00AM",
+            "3:00AM",
+            "4:00AM",
+            "5:00AM",
+            "6:00AM",
+            "7:00AM",
+            "8:00AM",
+            "9:00AM",
+            "10:00AM",
+            "11:00AM",
+            "12:00PM",
+            "1:00PM",
+            "2:00PM",
+            "3:00PM",
+            "4:00PM",
+            "5:00PM",
+            "6:00PM",
+            "7:00PM",
+            "8:00PM",
+            "9:00PM",
+            "10:00PM",
+            "11:00PM"});
+            this.ToCombo.Location = new System.Drawing.Point(295, 728);
+            this.ToCombo.Name = "ToCombo";
+            this.ToCombo.Size = new System.Drawing.Size(98, 21);
+            this.ToCombo.TabIndex = 4;
+            this.ToCombo.Text = "(Close Time)";
             // 
             // label1
             // 
@@ -152,13 +214,13 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "To";
             // 
-            // comboBox4
+            // SearchForCombo
             // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(399, 728);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(212, 21);
-            this.comboBox4.TabIndex = 8;
+            this.SearchForCombo.FormattingEnabled = true;
+            this.SearchForCombo.Location = new System.Drawing.Point(399, 728);
+            this.SearchForCombo.Name = "SearchForCombo";
+            this.SearchForCombo.Size = new System.Drawing.Size(212, 21);
+            this.SearchForCombo.TabIndex = 8;
             // 
             // label4
             // 
@@ -185,13 +247,13 @@
             this.ClientSize = new System.Drawing.Size(1438, 761);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.comboBox4);
+            this.Controls.Add(this.SearchForCombo);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox3);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.ToCombo);
+            this.Controls.Add(this.FromCombo);
+            this.Controls.Add(this.DayOfWeekCombo);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -209,13 +271,13 @@
         private System.Windows.Forms.CheckedListBox AttributeList;
         private System.Windows.Forms.CheckedListBox SubCategoryList;
         private System.Windows.Forms.CheckedListBox MainCategoryList;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox DayOfWeekCombo;
+        private System.Windows.Forms.ComboBox FromCombo;
+        private System.Windows.Forms.ComboBox ToCombo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.ComboBox SearchForCombo;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button2;
     }
