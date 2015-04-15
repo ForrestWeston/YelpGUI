@@ -32,7 +32,7 @@
             this.AttributeList = new System.Windows.Forms.CheckedListBox();
             this.SubCategoryList = new System.Windows.Forms.CheckedListBox();
             this.MainCategoryList = new System.Windows.Forms.CheckedListBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.BusinessGridView = new System.Windows.Forms.DataGridView();
             this.DayOfWeekCombo = new System.Windows.Forms.ComboBox();
             this.FromCombo = new System.Windows.Forms.ComboBox();
             this.ToCombo = new System.Windows.Forms.ComboBox();
@@ -43,7 +43,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BusinessGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -56,7 +56,7 @@
             this.tableLayoutPanel1.Controls.Add(this.AttributeList, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.SubCategoryList, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.MainCategoryList, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.dataGridView1, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.BusinessGridView, 3, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 43);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
@@ -71,6 +71,7 @@
             this.AttributeList.Name = "AttributeList";
             this.AttributeList.Size = new System.Drawing.Size(212, 649);
             this.AttributeList.TabIndex = 7;
+            this.AttributeList.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.AttributeList_ItemCheck);
             // 
             // SubCategoryList
             // 
@@ -90,17 +91,17 @@
             this.MainCategoryList.TabIndex = 5;
             this.MainCategoryList.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.MainCategoryList_ItemCheck);
             // 
-            // dataGridView1
+            // BusinessGridView
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(611, 3);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(800, 652);
-            this.dataGridView1.TabIndex = 8;
+            this.BusinessGridView.AllowUserToAddRows = false;
+            this.BusinessGridView.AllowUserToDeleteRows = false;
+            this.BusinessGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.BusinessGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BusinessGridView.Location = new System.Drawing.Point(611, 3);
+            this.BusinessGridView.Name = "BusinessGridView";
+            this.BusinessGridView.ReadOnly = true;
+            this.BusinessGridView.Size = new System.Drawing.Size(800, 652);
+            this.BusinessGridView.TabIndex = 8;
             // 
             // DayOfWeekCombo
             // 
@@ -217,6 +218,9 @@
             // SearchForCombo
             // 
             this.SearchForCombo.FormattingEnabled = true;
+            this.SearchForCombo.Items.AddRange(new object[] {
+            "ALL",
+            "ANY"});
             this.SearchForCombo.Location = new System.Drawing.Point(399, 728);
             this.SearchForCombo.Name = "SearchForCombo";
             this.SearchForCombo.Size = new System.Drawing.Size(212, 21);
@@ -258,7 +262,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BusinessGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -267,7 +271,7 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView BusinessGridView;
         private System.Windows.Forms.CheckedListBox AttributeList;
         private System.Windows.Forms.CheckedListBox SubCategoryList;
         private System.Windows.Forms.CheckedListBox MainCategoryList;

@@ -16,8 +16,15 @@ namespace YelpGUI
         MySqlConnector _mydb;
         List<String> MainCategoryCheckedItems = new List<String>();
         List<String> SubCategoryCheckedItems = new List<String>();
+        List<String> AttributeCheckedItems = new List<String>();
+
         Dictionary<string, int> CategoryLookUp = new Dictionary<string, int>();
         Dictionary<string, int> AttributeLookUp = new Dictionary<string, int>();
+
+        String MainCategoryQuerryIDs;
+        String SubCategoryQuerryIDs;
+        String AttributeQuerryIDs;
+     
 
 
         /*TODO:
@@ -39,6 +46,8 @@ namespace YelpGUI
             PopulateMainCategory();
             
         }
+
+        #region Form Events
 
         private void MainCategoryList_ItemCheck(object sender, ItemCheckEventArgs e)
         {
@@ -76,15 +85,36 @@ namespace YelpGUI
 
             //if there is nothing selected there is no reason to call this
             if (SubCategoryCheckedItems.Count > 0)
-            {
-                
                 AttributeList_Update();
-            }
+            
             //we need to clear the subcategory 
             else
                 AttributeList.Items.Clear();
         }
 
+        private void AttributeList_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (e.NewValue == CheckState.Checked)
+            {
+                var checkedItem = AttributeList.SelectedItem;
+                AttributeCheckedItems.Add(checkedItem.ToString());
+            }
+            else if (e.NewValue == CheckState.Unchecked)
+            {
+                var checkedItem = SubCategoryList.SelectedItem;
+                AttributeCheckedItems.Remove(checkedItem.ToString());
+            }
+
+            if (SubCategoryCheckedItems.Count > 0)
+                BusinessDataGridView_Update();
+            else
+                return;
+            /*Clear the business list view*/
+        }
+
+        #endregion
+
+        #region Form Updates
         private void SubCategoryList_Update()
         {
             SubCategoryList.Items.Clear();
@@ -98,16 +128,17 @@ namespace YelpGUI
                 whereClause.Append(itemID.ToString() + ", ");
             }
             whereClause.Remove(whereClause.Length - 2, 2);
+            MainCategoryQuerryIDs = whereClause.ToString();
 
-            string qStr = "SELECT name " +
-                          "FROM category C " +
-                          "WHERE C.ID IN " +
-                            "(SELECT DISTINCT category_id " +
-                            "FROM business_Category BC " +
-                            "WHERE BC.business_id IN " +
-                                "(SELECT DISTINCT business_id " +
-                                "FROM business_Category BC " +
-                                "WHERE BC.category_id IN (" + whereClause.ToString() + ")));";
+            string qStr = @"SELECT name
+                          FROM category C
+                          WHERE C.is_main = False AND C.ID IN
+                            (SELECT DISTINCT category_id
+                            FROM business_Category BC
+                            WHERE BC.business_id IN
+                                (SELECT DISTINCT business_id
+                                FROM business_Category BC
+                                WHERE BC.category_id IN (" + whereClause.ToString() + ")));";
     
             List<String> qResult = _mydb.SQLSELECTExec(qStr, "name");
             //copy query to Listbox cList
@@ -131,16 +162,17 @@ namespace YelpGUI
                 whereClause.Append(itemID.ToString() + ", ");
             }
             whereClause.Remove(whereClause.Length - 2, 2);
+            SubCategoryQuerryIDs = whereClause.ToString();
 
-            string qStr = "SELECT name " +
-                          "FROM attribute A " +
-                          "WHERE A.ID IN " +
-                            "(SELECT DISTINCT attribute_id " +
-                            "FROM business_Attribute BA " +
-                            "WHERE BA.business_id IN " +
-                                "(SELECT DISTINCT business_id " +
-                                "FROM business_Attribute BA " +
-                                "WHERE BA.attribute_id IN (" + whereClause.ToString() + ")));";
+            string qStr = @"SELECT name 
+                          FROM attribute A 
+                          WHERE A.ID IN 
+                            (SELECT DISTINCT attribute_id 
+                            FROM business_Attribute BA
+                            WHERE BA.business_id IN
+                                (SELECT DISTINCT business_id 
+                                FROM business_Attribute BA 
+                                WHERE BA.attribute_id IN (" + whereClause.ToString() + ")));";
 
             List<String> qResult = _mydb.SQLSELECTExec(qStr, "name");
             //copy query to Listbox cList
@@ -149,6 +181,39 @@ namespace YelpGUI
                 AttributeList.Items.Add(qResult[i]);
             }
         }
+
+        private void BusinessDataGridView_Update()
+        {
+            BusinessGridView.ClearSelection();
+
+            StringBuilder whereClause = new StringBuilder();
+
+            foreach (var item in AttributeCheckedItems)
+            {
+                int itemID = 0;
+                AttributeLookUp.TryGetValue(item.ToString(), out itemID);
+                whereClause.Append(itemID.ToString() + ", ");
+            }
+            whereClause.Remove(whereClause.Length - 2, 2);
+            AttributeQuerryIDs = whereClause.ToString();
+
+            string qStr = @"SELECT name as Business, city as City, state as State, stars as Stars
+                            FROM business
+                            INNER JOIN
+                            (
+                                SELECT BC.business_id, COUNT(BC.category_id) FROM business_Category BC
+                                WHERE BC.category_id IN (3, 4, 5, 6)
+                                GROUP BY BC.business_id
+                                HAVING COUNT(BC.category_id) >= 4
+                            ) business_Category
+                            ON business.ID = business_Category.business_id";
+            List<String> qResult = _mydb.SQLSELECTExec(qStr, "Business");
+        }
+
+        #endregion
+
+        #region Helpers
+
 
         private void BuildHashCategory()
         {
@@ -187,7 +252,9 @@ namespace YelpGUI
                 MainCategoryList.Items.Add(qResult[i]);
             }
         }
+        #endregion
 
-       
+     
+
     }
 }
