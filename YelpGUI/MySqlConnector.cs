@@ -92,6 +92,7 @@ namespace YelpGUI
             }
             return qResult;
         }
+
     }
 }
  
