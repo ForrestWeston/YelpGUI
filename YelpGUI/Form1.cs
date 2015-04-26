@@ -199,23 +199,19 @@ namespace YelpGUI
 
             string MainCatID = MainCategoryQuerryIDs.ToString();
             string SubCatID = SubCategoryQuerryIDs.ToString();
-            string AttCatID = AttributeQuerryIDs.ToString();
+            string AttID = AttributeQuerryIDs.ToString();
             int CatCount = (MainCategoryCheckedItems.Count() + SubCategoryCheckedItems.Count());
+            int AttCount = AttributeCheckedItems.Count();
 
-            string qStr = "SELECT name, city, state, stars FROM business INNER JOIN ( " +
-                          "SELECT BC.business_id, COUNT(BC.category_id) FROM business_Category BC WHERE BC.category_id IN (" + MainCatID + "," + SubCatID + ") " +
-                          "GROUP BY BC.business_id HAVING COUNT(BC.category_id) >= " + CatCount +" ) business_Category ON business.ID = business_Category.business_id;";
-            DataSet BusinessSource = new DataSet();
-            List<String> qName = _mydb.SQLSELECTExec(qStr, "name");
-            List<String> qCity = _mydb.SQLSELECTExec(qStr, "city");
-            List<String> qState = _mydb.SQLSELECTExec(qStr, "state");
-            List<String> qStars = _mydb.SQLSELECTExec(qStr, "stars");
+            //string qStr = "SELECT name, city, state, stars FROM business INNER JOIN ( " +
+            //              "SELECT BC.business_id, COUNT(BC.category_id) FROM business_Category BC WHERE BC.category_id IN (" + MainCatID + "," + SubCatID + ") " +
+            //              "GROUP BY BC.business_id HAVING COUNT(BC.category_id) >= " + CatCount +" ) business_Category ON business.ID = business_Category.business_id;";
+            string qStr = "SELECT distinct name, city, state, stars FROM BusinessCatAtt " +
+                          "WHERE category_id IN ( " + MainCatID + "," + SubCatID + " ) AND attribute_id IN (" + AttID + ") " +
+                          "GROUP BY ID HAVING COUNT(category_id) >= " + CatCount + " AND COUNT(attribute_id) >= " + AttCount + ";";
 
-            //DataTable t = new DataTable();
-            //t = _mydb.FillTable(qStr);
             BusinessGridView.DataSource = _mydb.FillTable(qStr); 
-
-            
+  
         }
 
         #endregion

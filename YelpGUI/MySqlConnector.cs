@@ -102,9 +102,12 @@ namespace YelpGUI
                {
                    DataTable t = new DataTable();
                    a.Fill(t);
+                   this.CloseConnection();
                    return t;
                }
            }
+           this.CloseConnection();
+            //should never hit here unless we are disconnected from the db
            DataTable tp = new DataTable();
            return tp;
         }
