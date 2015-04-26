@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MySql.Data.MySqlClient;       //add mysql connector library
+using MySql.Data.MySqlClient;//add mysql connector library
+using System.Data;       
 
 namespace YelpGUI
 {
@@ -93,6 +94,20 @@ namespace YelpGUI
             return qResult;
         }
 
+        public DataTable FillTable(string queryStr)
+        {
+           if(this.OpenConnection() == true)
+           {
+               using(MySqlDataAdapter a = new MySqlDataAdapter(queryStr, connection))
+               {
+                   DataTable t = new DataTable();
+                   a.Fill(t);
+                   return t;
+               }
+           }
+           DataTable tp = new DataTable();
+           return tp;
+        }
     }
 }
  

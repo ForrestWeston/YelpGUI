@@ -197,17 +197,25 @@ namespace YelpGUI
             whereClause.Remove(whereClause.Length - 2, 2);
             AttributeQuerryIDs = whereClause.ToString();
 
-            string qStr = @"SELECT name as Business, city as City, state as State, stars as Stars
-                            FROM business
-                            INNER JOIN
-                            (
-                                SELECT BC.business_id, COUNT(BC.category_id) FROM business_Category BC
-                                WHERE BC.category_id IN (3, 4, 5, 6)
-                                GROUP BY BC.business_id
-                                HAVING COUNT(BC.category_id) >= 4
-                            ) business_Category
-                            ON business.ID = business_Category.business_id";
-            List<String> qResult = _mydb.SQLSELECTExec(qStr, "Business");
+            string MainCatID = MainCategoryQuerryIDs.ToString();
+            string SubCatID = SubCategoryQuerryIDs.ToString();
+            string AttCatID = AttributeQuerryIDs.ToString();
+            int CatCount = (MainCategoryCheckedItems.Count() + SubCategoryCheckedItems.Count());
+
+            string qStr = "SELECT name, city, state, stars FROM business INNER JOIN ( " +
+                          "SELECT BC.business_id, COUNT(BC.category_id) FROM business_Category BC WHERE BC.category_id IN (" + MainCatID + "," + SubCatID + ") " +
+                          "GROUP BY BC.business_id HAVING COUNT(BC.category_id) >= " + CatCount +" ) business_Category ON business.ID = business_Category.business_id;";
+            DataSet BusinessSource = new DataSet();
+            List<String> qName = _mydb.SQLSELECTExec(qStr, "name");
+            List<String> qCity = _mydb.SQLSELECTExec(qStr, "city");
+            List<String> qState = _mydb.SQLSELECTExec(qStr, "state");
+            List<String> qStars = _mydb.SQLSELECTExec(qStr, "stars");
+
+            //DataTable t = new DataTable();
+            //t = _mydb.FillTable(qStr);
+            BusinessGridView.DataSource = _mydb.FillTable(qStr); 
+
+            
         }
 
         #endregion
