@@ -46,6 +46,8 @@ namespace YelpGUI
             BuildAttributeHash();
             PopulateMainCategory();
             SearchButton.Enabled = false;
+            ReviewsButton.Enabled = false;
+            SimilarButton.Enabled = false;
 
         }
 
@@ -118,11 +120,15 @@ namespace YelpGUI
             if (AttributeCheckedItems.Count > 0)
             {
                 SearchButton.Enabled = true;
+                ReviewsButton.Enabled = true;
+                SimilarButton.Enabled = true;
                 BusinessDataGridView_Update();
             }
             else
             {
                 BusinessGridView.ClearSelection();
+                ReviewsButton.Enabled = false;
+                SimilarButton.Enabled = false;
                 SearchButton.Enabled = false;
                 return;
             }
@@ -131,16 +137,6 @@ namespace YelpGUI
         private void SearchButton_Click(object sender, EventArgs e)
         {
             BusinessDataGridView_Refine();
-        }
-
-        private void BusinessGridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            string selectedBusinessID = BusinessGridView[BusinessGridView.CurrentCell.ColumnIndex + 4, BusinessGridView.CurrentCell.RowIndex].Value.ToString();
-            BusinessForm BusForm = new BusinessForm();
-            BusForm.BusinessForm_PopulateGridView(selectedBusinessID, sender, e);
-            BusForm.Show();
-            
-          
         }
 
         #endregion
@@ -266,7 +262,8 @@ namespace YelpGUI
             int CatCount = (MainCategoryCheckedItems.Count() + SubCategoryCheckedItems.Count());
             int AttCount = AttributeCheckedItems.Count();
 
-            InnerJoin.Append("INNER JOIN business_Hour ON ID = business_Hour.business_id");
+            if (DayOfWeekCombo.Text != string.Empty || FromCombo.Text != string.Empty || ToCombo.Text != string.Empty)
+                InnerJoin.Append("INNER JOIN business_Hour ON ID = business_Hour.business_id");
 
             if (DayOfWeekCombo.Text != string.Empty)
                 InnerJoin.Append(" AND business_Hour.day_of_week ='" + DayOfWeekCombo.Text + "'");
@@ -330,6 +327,23 @@ namespace YelpGUI
         }
 
         #endregion
+
+        private void ReviewsButton_Click(object sender, EventArgs e)
+        {
+            string selectedBusinessID = BusinessGridView[BusinessGridView.CurrentCell.ColumnIndex + 4, BusinessGridView.CurrentCell.RowIndex].Value.ToString();
+            BusinessForm BusForm = new BusinessForm();
+            BusForm.BusinessForm_PopulateGridView(selectedBusinessID, sender, e);
+            BusForm.Show();
+        }
+
+        private void SimilarButton_Click(object sender, EventArgs e)
+        {
+            
+            //string selectedBusinessID = BusinessGridView[BusinessGridView.CurrentCell.ColumnIndex + 4, BusinessGridView.CurrentCell.RowIndex].Value.ToString();
+            SimilarForm SimForm = new SimilarForm();
+            SimForm.SimilarForm_PopulateGridView(SubCategoryQuerryIDs, AttributeQuerryIDs, SubCategoryCheckedItems.Count(),  AttributeCheckedItems.Count(), sender, e);
+            SimForm.Show();
+        }
 
 
 

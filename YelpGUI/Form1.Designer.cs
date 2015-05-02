@@ -42,6 +42,8 @@
             this.SearchForCombo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.SearchButton = new System.Windows.Forms.Button();
+            this.ReviewsButton = new System.Windows.Forms.Button();
+            this.SimilarButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BusinessGridView)).BeginInit();
             this.SuspendLayout();
@@ -99,11 +101,12 @@
             this.BusinessGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.BusinessGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BusinessGridView.Location = new System.Drawing.Point(611, 3);
+            this.BusinessGridView.MultiSelect = false;
             this.BusinessGridView.Name = "BusinessGridView";
             this.BusinessGridView.ReadOnly = true;
+            this.BusinessGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.BusinessGridView.Size = new System.Drawing.Size(800, 652);
             this.BusinessGridView.TabIndex = 8;
-            this.BusinessGridView.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.BusinessGridView_CellContentDoubleClick);
             // 
             // DayOfWeekCombo
             // 
@@ -239,7 +242,7 @@
             // 
             // SearchButton
             // 
-            this.SearchButton.Location = new System.Drawing.Point(623, 706);
+            this.SearchButton.Location = new System.Drawing.Point(623, 707);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 23);
             this.SearchButton.TabIndex = 10;
@@ -247,11 +250,33 @@
             this.SearchButton.UseVisualStyleBackColor = true;
             this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
             // 
+            // ReviewsButton
+            // 
+            this.ReviewsButton.Location = new System.Drawing.Point(704, 707);
+            this.ReviewsButton.Name = "ReviewsButton";
+            this.ReviewsButton.Size = new System.Drawing.Size(75, 23);
+            this.ReviewsButton.TabIndex = 11;
+            this.ReviewsButton.Text = "Reviews";
+            this.ReviewsButton.UseVisualStyleBackColor = true;
+            this.ReviewsButton.Click += new System.EventHandler(this.ReviewsButton_Click);
+            // 
+            // SimilarButton
+            // 
+            this.SimilarButton.Location = new System.Drawing.Point(785, 707);
+            this.SimilarButton.Name = "SimilarButton";
+            this.SimilarButton.Size = new System.Drawing.Size(75, 23);
+            this.SimilarButton.TabIndex = 12;
+            this.SimilarButton.Text = "Show Similar";
+            this.SimilarButton.UseVisualStyleBackColor = true;
+            this.SimilarButton.Click += new System.EventHandler(this.SimilarButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1438, 761);
+            this.Controls.Add(this.SimilarButton);
+            this.Controls.Add(this.ReviewsButton);
             this.Controls.Add(this.SearchButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.SearchForCombo);
@@ -287,6 +312,8 @@
         private System.Windows.Forms.ComboBox SearchForCombo;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button SearchButton;
+        private System.Windows.Forms.Button ReviewsButton;
+        private System.Windows.Forms.Button SimilarButton;
     }
 }
 

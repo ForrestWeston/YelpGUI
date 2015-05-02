@@ -13,7 +13,6 @@ namespace YelpGUI
     public partial class BusinessForm : Form
     {
         MySqlConnector _mydb;
-        
         public BusinessForm()
         {
             InitializeComponent();
