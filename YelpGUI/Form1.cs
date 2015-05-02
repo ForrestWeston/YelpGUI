@@ -275,7 +275,7 @@ namespace YelpGUI
             if (ToCombo.Text != string.Empty)
                 InnerJoin.Append(" AND business_Hour.close_time <='" + ToCombo.Text + "'");
             if (SearchForCombo.Text == "ANY")
-                AttCount = 0;
+                AttCount = 1;
 
             string qStr = "SELECT distinct name, city, state, stars, ID FROM BusinessCatAtt " +
                            InnerJoin.ToString() + " " +
