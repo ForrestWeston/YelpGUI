@@ -41,7 +41,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.SearchForCombo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.SearchButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BusinessGridView)).BeginInit();
             this.SuspendLayout();
@@ -95,6 +95,7 @@
             // 
             this.BusinessGridView.AllowUserToAddRows = false;
             this.BusinessGridView.AllowUserToDeleteRows = false;
+            this.BusinessGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.BusinessGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.BusinessGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BusinessGridView.Location = new System.Drawing.Point(611, 3);
@@ -102,6 +103,7 @@
             this.BusinessGridView.ReadOnly = true;
             this.BusinessGridView.Size = new System.Drawing.Size(800, 652);
             this.BusinessGridView.TabIndex = 8;
+            this.BusinessGridView.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.BusinessGridView_CellContentDoubleClick);
             // 
             // DayOfWeekCombo
             // 
@@ -235,21 +237,21 @@
             this.label4.TabIndex = 9;
             this.label4.Text = "Search For";
             // 
-            // button2
+            // SearchButton
             // 
-            this.button2.Location = new System.Drawing.Point(623, 706);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 10;
-            this.button2.Text = "Search";
-            this.button2.UseVisualStyleBackColor = true;
+            this.SearchButton.Location = new System.Drawing.Point(623, 706);
+            this.SearchButton.Name = "SearchButton";
+            this.SearchButton.Size = new System.Drawing.Size(75, 23);
+            this.SearchButton.TabIndex = 10;
+            this.SearchButton.Text = "Search";
+            this.SearchButton.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1438, 761);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.SearchButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.SearchForCombo);
             this.Controls.Add(this.label3);
@@ -283,7 +285,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox SearchForCombo;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button SearchButton;
     }
 }
 
