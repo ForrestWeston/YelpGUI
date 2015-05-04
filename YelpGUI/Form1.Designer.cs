@@ -45,6 +45,7 @@
             this.ReviewsButton = new System.Windows.Forms.Button();
             this.SimilarButton = new System.Windows.Forms.Button();
             this.MapButton = new System.Windows.Forms.Button();
+            this.NearByButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BusinessGridView)).BeginInit();
             this.SuspendLayout();
@@ -281,11 +282,22 @@
             this.MapButton.UseVisualStyleBackColor = true;
             this.MapButton.Click += new System.EventHandler(this.MapButton_Click);
             // 
+            // NearByButton
+            // 
+            this.NearByButton.Location = new System.Drawing.Point(1120, 705);
+            this.NearByButton.Name = "NearByButton";
+            this.NearByButton.Size = new System.Drawing.Size(217, 23);
+            this.NearByButton.TabIndex = 14;
+            this.NearByButton.Text = "Near By";
+            this.NearByButton.UseVisualStyleBackColor = true;
+            this.NearByButton.Click += new System.EventHandler(this.FindNearBy);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1438, 761);
+            this.Controls.Add(this.NearByButton);
             this.Controls.Add(this.MapButton);
             this.Controls.Add(this.SimilarButton);
             this.Controls.Add(this.ReviewsButton);
@@ -327,6 +339,7 @@
         private System.Windows.Forms.Button ReviewsButton;
         private System.Windows.Forms.Button SimilarButton;
         private System.Windows.Forms.Button MapButton;
+        private System.Windows.Forms.Button NearByButton;
     }
 }
 

@@ -366,6 +366,35 @@ namespace YelpGUI
             
         }
 
+        private void FindNearBy(object sender, EventArgs e)
+        {
+            string selectedBusinessID = BusinessGridView[BusinessGridView.CurrentCell.ColumnIndex + 4, BusinessGridView.CurrentCell.RowIndex].Value.ToString();
+            string qStr = "SELECT latitude, longitude, name, stars FROM Business WHERE ID = '" + selectedBusinessID + "';";
+            List<String> qResultLatitude = _mydb.SQLSELECTExec(qStr, "latitude");
+            List<String> qResultLongitude = _mydb.SQLSELECTExec(qStr, "longitude");
+            List<String> qResultName = _mydb.SQLSELECTExec(qStr, "name");
+            List<String> qResultStars = _mydb.SQLSELECTExec(qStr, "stars");
+            double lat = Convert.ToDouble(qResultLatitude[0].ToString());
+            double lon = Convert.ToDouble(qResultLongitude[0].ToString());
+            string locQStr = "SELECT ID, ( 3959 * acos( cos( radians(37) ) * cos( radians( " + lat + " ) ) * " +
+                             "cos( radians( "+lon+" ) - radians(-122) ) + sin( radians(37) ) * " +
+                             "sin( radians( " + lat + " ) ) ) ) AS distance FROM Business HAVING " +
+                             "distance < 5000 ORDER BY distance LIMIT 0 , 20;";
+            List<String> qNearByResult = _mydb.SQLSELECTExec(locQStr, "ID");
+            foreach (var business in qNearByResult)
+            {
+                string query = "SELECT latitude, longitude, name, stars FROM Business WHERE ID = '" + business.ToString() + "';";
+                List<String> qLatitude = _mydb.SQLSELECTExec(query, "latitude");
+                List<String> qLongitude = _mydb.SQLSELECTExec(query, "longitude");
+                List<String> qtName = _mydb.SQLSELECTExec(query, "name");
+                List<String> qStars = _mydb.SQLSELECTExec(query, "stars");
+                double latitude = Convert.ToDouble(qLatitude[0].ToString());
+                double longitude = Convert.ToDouble(qLongitude[0].ToString());
+                mapCon.addPin(latitude, longitude, qtName[0].ToString(), qStars[0].ToString(), business.ToString());
+            }
+            mapCon.Show();
+        }
+
 
 
 
