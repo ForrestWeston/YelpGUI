@@ -26,7 +26,19 @@ namespace YelpGUI
                           "WHERE category_id IN ( " + subCatId + " ) AND attribute_id IN (" + attId + ") " +
                           "GROUP BY ID HAVING COUNT(category_id) >= " + subCount + " AND COUNT(attribute_id) >= " + attCount + ";";
             SimilarGridView.DataSource = _mydb.FillTable(qStr);
+            
             SimilarGridView.Columns[4].Visible = false;
+        }
+
+        private void ReviewButton_Click(object sender, EventArgs e)
+        {
+            if (SimilarGridView.CurrentRow == null)
+                return;
+            string selectedBusinessID = SimilarGridView[SimilarGridView.CurrentCell.ColumnIndex + 4, SimilarGridView.CurrentCell.RowIndex].Value.ToString();
+            BusinessForm BusForm = new BusinessForm();
+            BusForm.BusinessForm_PopulateGridView(selectedBusinessID, sender, e);
+            BusForm.Show();
+
         }
     }
 }

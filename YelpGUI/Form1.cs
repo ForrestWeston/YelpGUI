@@ -8,12 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Microsoft.Maps;
+using Microsoft.Maps.MapControl.WPF;
+using Microsoft.Maps.MapControl.WPF.Design;
+using System.Windows.Controls.Primitives;
+
 
 namespace YelpGUI
 {
     public partial class Form1 : Form
     {
         MySqlConnector _mydb;
+        MapContainer mapCon = new MapContainer();
         List<String> MainCategoryCheckedItems = new List<String>();
         List<String> SubCategoryCheckedItems = new List<String>();
         List<String> AttributeCheckedItems = new List<String>();
@@ -343,6 +349,21 @@ namespace YelpGUI
             SimilarForm SimForm = new SimilarForm();
             SimForm.SimilarForm_PopulateGridView(SubCategoryQuerryIDs, AttributeQuerryIDs, SubCategoryCheckedItems.Count(),  AttributeCheckedItems.Count(), sender, e);
             SimForm.Show();
+        }
+
+        private void MapButton_Click(object sender, EventArgs e)
+        {
+            string selectedBusinessID = BusinessGridView[BusinessGridView.CurrentCell.ColumnIndex + 4, BusinessGridView.CurrentCell.RowIndex].Value.ToString();
+            string qStr = "SELECT latitude, longitude, name, stars FROM Business WHERE ID = '" + selectedBusinessID + "';";
+            List<String> qResultLatitude = _mydb.SQLSELECTExec(qStr, "latitude");
+            List<String> qResultLongitude = _mydb.SQLSELECTExec(qStr, "longitude");
+            List<String> qResultName = _mydb.SQLSELECTExec(qStr, "name");
+            List<String> qResultStars = _mydb.SQLSELECTExec(qStr, "stars");
+            double lat = Convert.ToDouble(qResultLatitude[0].ToString());
+            double lon = Convert.ToDouble(qResultLongitude[0].ToString());
+            mapCon.Show();
+            mapCon.addPin(lat, lon, qResultName[0].ToString(), qResultStars[0].ToString(), selectedBusinessID);
+            
         }
 
 

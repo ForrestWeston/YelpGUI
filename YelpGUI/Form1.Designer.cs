@@ -44,6 +44,7 @@
             this.SearchButton = new System.Windows.Forms.Button();
             this.ReviewsButton = new System.Windows.Forms.Button();
             this.SimilarButton = new System.Windows.Forms.Button();
+            this.MapButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BusinessGridView)).BeginInit();
             this.SuspendLayout();
@@ -270,11 +271,22 @@
             this.SimilarButton.UseVisualStyleBackColor = true;
             this.SimilarButton.Click += new System.EventHandler(this.SimilarButton_Click);
             // 
+            // MapButton
+            // 
+            this.MapButton.Location = new System.Drawing.Point(867, 706);
+            this.MapButton.Name = "MapButton";
+            this.MapButton.Size = new System.Drawing.Size(246, 23);
+            this.MapButton.TabIndex = 13;
+            this.MapButton.Text = "Put It On The Map";
+            this.MapButton.UseVisualStyleBackColor = true;
+            this.MapButton.Click += new System.EventHandler(this.MapButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1438, 761);
+            this.Controls.Add(this.MapButton);
             this.Controls.Add(this.SimilarButton);
             this.Controls.Add(this.ReviewsButton);
             this.Controls.Add(this.SearchButton);
@@ -314,6 +326,7 @@
         private System.Windows.Forms.Button SearchButton;
         private System.Windows.Forms.Button ReviewsButton;
         private System.Windows.Forms.Button SimilarButton;
+        private System.Windows.Forms.Button MapButton;
     }
 }
 
